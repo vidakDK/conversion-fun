@@ -86,7 +86,7 @@ def roman2int(s):
     :param s: string representation of the Roman number in the integer range of 1-4999.
     :return: integer representation of the input number.
     """
-    if not s:
+    if not s or not isinstance(s, str):
         raise InputError(s, "Input value must be a non-empty string.")
     elif __roman_numeral_regex.search(s) is None:
         raise InputError(s, "Input is not a valid Roman numeral representation of numbers in the 1-4999 range.")

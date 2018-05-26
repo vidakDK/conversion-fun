@@ -1,5 +1,5 @@
 import unittest
-from .efficiency_comparison import num2roman, roman2num_iter, roman2num_iter2, roman2num_regex
+from roman_conversion import roman2int, int2roman
 
 
 class KnownValues(unittest.TestCase):
@@ -60,24 +60,14 @@ class KnownValues(unittest.TestCase):
                     (3940, 'MMMCMXL'),
                     (3999, 'MMMCMXCIX'))
 
-    def test_to_roman_known_values(self):
+    def test_int2roman_known(self):
         for integer, numeral in self.known_values:
-            result = num2roman(integer)
+            result = int2roman(integer)
             self.assertEqual(numeral, result)
 
-    def test_roman_to_num_iter1(self):
+    def test_roman2int_known(self):
         for integer, numeral in self.known_values:
-            result = roman2num_iter(numeral)
-            self.assertEqual(integer, result)
-
-    def test_roman_to_num_iter2(self):
-        for integer, numeral in self.known_values:
-            result = roman2num_iter2(numeral)
-            self.assertEqual(integer, result)
-
-    def test_roman_to_num_regex(self):
-        for integer, numeral in self.known_values:
-            result = roman2num_regex(numeral)
+            result = roman2int(numeral)
             self.assertEqual(integer, result)
 
 
