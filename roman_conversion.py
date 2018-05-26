@@ -1,15 +1,8 @@
 """Roman/Integer conversion module"""
 
-__author__ = "Vidak Kazic (vidak.kazic@gmail.com)"
-__date__ = "26/05/2018"
-
-"""
-This module contains two functions for conversion between Roman and Integer(Arabic) number systems.
-"""
-
 import re
 
-# We use two versions of Roman Numeral maps, extended and basic, to maximize algorithm efficiency.
+# We use two versions of Roman Numeral mappings, extended and basic, to maximize algorithm efficiency.
 __extended_map = [('M', 1000),
                   ('CM', 900),
                   ('D', 500),
@@ -27,8 +20,7 @@ __extended_map = [('M', 1000),
 __bmap = {'M': 1000, 'D': 500, 'C': 100, 'L': 50, 'X': 10, 'V': 5, 'I': 1}  # basic map - used for optimization
 
 
-# Define Regex pattern that is used to validate the input Roman numeral string,
-# match Roman representations of values 1-4999.
+# Regex pattern to validate the input Roman numeral string (values 1-4999).
 __roman_numeral_regex = re.compile("""
     ^                   # beginning of string
     M{0,4}              # thousands - 0 to 4 M's

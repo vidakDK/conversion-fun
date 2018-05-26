@@ -1,12 +1,7 @@
-"""Comparison of different algorithms for Roman<->Integer conversion"""
+"""Comparison of different algorithms for Roman<->Integer conversion
 
-__author__ = "Vidak Kazic (vidak.kazic@gmail.com)"
-__date__ = "26/05/2018"
-
-
-"""
 This module compares three different Integer to Roman algorithms and three different Roman to Integer algorithms,
-and does a timing analysis to find the fastest algorithm, since we are not concerened with memory for this type
+and does a timing analysis to find the fastest algorithm, since we are not concerned with memory for this type
 of problem.
 """
 import timeit
