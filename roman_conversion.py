@@ -55,8 +55,8 @@ def int2roman(num):
         num = int(num)
     except ValueError:
         raise InputError(num, "Input must be in integer representation.")
-    if num == 0:
-        raise InputError(num, "Input cannot be zero - no Roman numeral.")
+    if num <= 0:
+        raise InputError(num, "Input must be a positive integer.")
 
     res = ""
     for r, i in __extended_map:
