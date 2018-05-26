@@ -7,7 +7,7 @@ Library for converting numbers from Roman numerals to Arabic integers.
 
 There are two main functions that reside in the `roman_conversion` module:
 
-function | explanation
+function | description
 -------- | -----------
 `int2roman` | Converts integer in the range [1,4999] to a Roman numeral
 `roman2int` | Converts a Roman numeral to an integer representation (also [1,4999])
@@ -18,13 +18,12 @@ In a Python module or console:
 
 ```python
 from roman_conversion import int2roman, roman2int
-foo = 'VIX'
+foo = 'XIV'
 bar = roman2int(foo)
-print(bar)
+print(bar)  # prints 14
 baz = int2roman(bar)
-print(baz)
+print(baz)  # prints XIV
 ```
-
 
 ## Tests
 
