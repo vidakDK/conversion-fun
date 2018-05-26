@@ -3,8 +3,13 @@
 __author__ = "Vidak Kazic (vidak.kazic@gmail.com)"
 __date__ = "26/05/2018"
 
-import timeit
 
+"""
+This module compares three different Integer to Roman algorithms and three different Roman to Integer algorithms,
+and does a timing analysis to find the fastest algorithm, since we are not concerened with memory for this type
+of problem.
+"""
+import timeit
 
 roman_numeral_map = [('M', 1000),
                      ('CM', 900),
