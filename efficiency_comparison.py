@@ -3,9 +3,9 @@
 __author__ = "Vidak Kazic (vidak.kazic@gmail.com)"
 __date__ = "26/05/2018"
 
-import re
+import timeit
 
-# Number to Roman:
+
 roman_numeral_map = [('M', 1000),
                      ('CM', 900),
                      ('D', 500),
@@ -20,9 +20,11 @@ roman_numeral_map = [('M', 1000),
                      ('IV', 4),
                      ('I', 1)]
 
+l = {'M': 1000, 'D': 500, 'C': 100, 'L': 50, 'X': 10, 'V': 5, 'I': 1}
+
 
 def num2roman_iter(num):
-    """Algorithm based on classic addition/subtraction"""
+    """Integer to Roman algorithm based on classic addition/subtraction."""
     res = ""
     for r, i in roman_numeral_map:
         while num >= i:
@@ -32,7 +34,7 @@ def num2roman_iter(num):
 
 
 def num2roman_divmod(num):
-    """Algorithm based on divmod function"""
+    """Integer to Roman algorithm based on divmod function."""
     res = ""
     for r, i in roman_numeral_map:
         factor, num = divmod(num, i)
@@ -41,38 +43,39 @@ def num2roman_divmod(num):
             break
     return res
 
+
 def num2roman_string(num):
-    """Algorithm based on string replace"""
+    """Integer to Roman algorithm based on string replace.
+    It starts from a string of I characters that it then replaces by priority."""
+    res = "I"*num
+    return res \
+        .replace("IIIII", "V") \
+        .replace("IIII", "IV") \
+        .replace("VV", "X") \
+        .replace("VIV", "IX") \
+        .replace("XXXXX", "L") \
+        .replace("XXXX", "XL") \
+        .replace("LL", "C") \
+        .replace("LXL", "XC") \
+        .replace("CCCCC", "D") \
+        .replace("CCCC", "CD") \
+        .replace("DD", "M") \
+        .replace("DCD", "CM")
 
-    return "".join("I"*num))
-    .replace("IIIII", "V")
-    .replace("IIII", "IV")
-    .replace("VV", "X")
-    .replace("VIV", "IX")
-    .replace("XXXXX", "L")
-    .replace("XXXX", "XL")
-    .replace("LL", "C")
-    .replace("LXL", "XC")
-    .replace("CCCCC", "D")
-    .replace("CCCC", "CD")
-    .replace("DD", "M")
-    .replace("DCD", "CM");
 
-
-def roman2num_regex(s):
-    result = 0
+def roman2num_bigmap(s):
+    """Roman to Integer algorithm based on full numeral mapping."""
+    res = 0
     index = 0
-    for numeral, integer in roman_numeral_map:
-        while s[index:index+len(numeral)] == numeral:
-            result += integer
-            index += len(numeral)
-    return result
-
-
-l = {'M': 1000, 'D': 500, 'C': 100, 'L': 50, 'X': 10, 'V': 5, 'I': 1}
+    for r, i in roman_numeral_map:
+        while s[index:index+len(r)] == r:
+            res += i
+            index += len(r)
+    return res
 
 
 def roman2num_iter(s):
+    """Roman to Integer algorithm based on classic subtraction and reduced numeral mapping."""
     result = 0
     for i in range(len(s)):
         result += l[s[i]]
@@ -82,37 +85,41 @@ def roman2num_iter(s):
 
 
 def roman2num_iter2(s):
+    """Roman to Integer algorithm based on subtraction and Python zip function for efficiency,
+    with reduced numeral mapping."""
     return sum([l[i] if l[i] >= l[j] else -l[i] for i, j in zip(s, s[1:])]) + l[s[-1]]
 
 
+def algorithm_timer(fun, test_set, num_iterations):
+    """
+    Time specific algorithm for the Integer to Roman conversion.
+
+    :param fun: function object
+    :param test_set: set of values to convert
+    :param num_iterations: timeit number of iterations
+    """
+    return("Algorithm: {}\nDescription: {}\nExecution time: {} seconds.\n***********".format(
+        fun.__name__,
+        fun.__doc__,
+        timeit.timeit(
+            "for i in {}: {}(i)".format(test_set, fun.__name__),
+            setup="from __main__ import {}".format(fun.__name__),
+            number=num_iterations
+        )
+    ))
+
+
 if __name__ == '__main__':
-    import timeit
+    # Test Roman to Integer algorithms:
+    test_set = ['I', 'IV', 'XIX', 'LIV', 'DCCLXXII', 'MCCCXXIV', 'MMMMCMXCIX']
+    print("\n\n")
+    print(algorithm_timer(roman2num_iter, test_set, 10000))
+    print(algorithm_timer(roman2num_iter2, test_set, 10000))
+    print(algorithm_timer(roman2num_bigmap, test_set, 10000))
 
-    print("Integer to Roman timing test:")
-    print("Iterative version: {}".format(timeit.timeit(
-        "for i in range(5000): num2roman(i)",
-        setup="from __main__ import num2roman", number=100
-    )))
-
-    print("Roman to Integer timing test:")
-    values = ['I', 'IV', 'XIX', 'LIV', 'DCCLXXII', 'MCCCXXIV', 'MMMMCMXCIX']
-    print("Iterative 1 version: {}".format(timeit.timeit(
-        "for r in ['I', 'IV', 'XIX', 'LIV', 'DCCLXXII', 'MCCCXXIV', 'MMMMCMXCIX']: roman2num_iter(r)",
-        setup="from __main__ import roman2num_iter", number=10000
-    )))
-    for v in values:
-        print(roman2num_iter(v))
-
-    print("Iterative 2 version: {}".format(timeit.timeit(
-        "for r in ['I', 'IV', 'XIX', 'LIV', 'DCCLXXII', 'MCCCXXIV', 'MMMMCMXCIX']: roman2num_iter2(r)",
-        setup="from __main__ import roman2num_iter2", number=10000
-    )))
-    for v in values:
-        print(roman2num_iter2(v))
-
-    print("Regex version: {}".format(timeit.timeit(
-        "for r in ['I', 'IV', 'XIX', 'LIV', 'DCCLXXII', 'MCCCXXIV', 'MMMMCMXCIX']: roman2num_regex(r)",
-        setup="from __main__ import roman2num_regex", number=10000
-    )))
-    for v in values:
-        print(roman2num_regex(v))
+    # Test Integer to Roman algorithms:
+    test_set = list(range(5000))
+    print("\n\n")
+    print(algorithm_timer(num2roman_iter, test_set, 100))
+    print(algorithm_timer(num2roman_divmod, test_set, 100))
+    print(algorithm_timer(num2roman_string, test_set, 100))
