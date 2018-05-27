@@ -25,6 +25,12 @@ baz = int2roman(bar)
 print(baz)  # prints XIV
 ```
 
+## Algorithms
+
+Algorithm complexity is `O(n)` in both directions, although this is not relevant for bounded input [1,4999], but the 
+`int2roman` algorithm in its basic nature is not upper-bounded (just adds 'M's until it arrives to correct range), so 
+it adds value to mention the algorithm complexity in this case. 
+
 ## Tests
 
 ### Unit Tests
@@ -43,20 +49,8 @@ To run the timing tests:
 python timing_tests.py
 ```
 
+
 ## Acknowledgements
 
 Thanks to the `roman` package creator Mark Pilgrim (mark@diveintopython.org) 
 for unit test ideas and validity check regex.
-
-
-
-
-
-
-
-
-
-
-
-
-
