@@ -1,6 +1,6 @@
 # Roman Conversion
 
-Library for converting numbers from Roman numerals to Arabic integers.
+Library for converting numbers from Roman numerals to Arabic integers and vice versa.
 
 
 ## Introduction
@@ -43,6 +43,10 @@ To run the timing tests:
 python timing_tests.py
 ```
 
+## Acknowledgements
+
+Thanks to the `roman` package creator Mark Pilgrim (mark@diveintopython.org) 
+for unit test ideas and validity check regex.
 
 
 

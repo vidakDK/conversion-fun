@@ -1,5 +1,5 @@
 import unittest
-from roman_conversion import roman2int, int2roman
+from roman_conversion import roman2int, int2roman, InputError
 
 
 class KnownValues(unittest.TestCase):
@@ -61,15 +61,38 @@ class KnownValues(unittest.TestCase):
                     (3999, 'MMMCMXCIX'))
 
     def test_int2roman_known(self):
+        """Integer to Roman correctness for known values."""
         for integer, numeral in self.known_values:
             result = int2roman(integer)
             self.assertEqual(numeral, result)
 
     def test_roman2int_known(self):
+        """ROman to Integer correctness for known values."""
         for integer, numeral in self.known_values:
             result = roman2int(numeral)
             self.assertEqual(integer, result)
 
 
+class TestBadInput(unittest.TestCase):
+    def test_roman2int(self):
+        """Test if error raising works for bad input string."""
+        for s in ['MMMMM', 'DD', 'CCCC', "", "VIV", "XLXL", "vi"]:
+            self.assertRaises(InputError, roman2int, s)
+
+    def test_int2roman(self):
+        """Test if error raising works for bad input integer."""
+        for num in [0, -1, 1.5, "V", "", [1,2], [], 5000]:
+            self.assertRaises(InputError, int2roman, num)
+
+
+class TestBackForth(unittest.TestCase):
+    def test_back_forth(self):
+        """Test if conversion int2roman and roman2int gives same results."""
+        for num in range(1, 5000):
+            self.assertEqual(num, roman2int(int2roman(num)))
+
+
 if __name__ == '__main__':
     unittest.main()
+
+    import roman

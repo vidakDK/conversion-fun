@@ -44,11 +44,17 @@ def int2roman(num):
     :return: string representation of the input number in Roman numerals
     """
     try:
-        num = int(num)
+        num_int = int(num)
     except ValueError:
-        raise InputError(num, "Input must be in integer representation.")
-    if num <= 0:
-        raise InputError(num, "Input must be a positive integer.")
+        raise InputError(num, "Input value must be in integer representation.")
+    except TypeError:
+        raise InputError(num, "Input must be a number, string, or a bytes-like object.")
+    if num != num_int:
+        raise InputError(num, "Input cannot be a non-integer decimal value.")
+    else:
+        num = int(num)
+    if not 0 < num < 5000:
+        raise InputError(num, "Input must be an integer in [1,4999] range.")
 
     res = ""
     for r, i in __extended_map:
