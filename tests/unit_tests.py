@@ -73,6 +73,14 @@ class KnownValues(unittest.TestCase):
             self.assertEqual(integer, result)
 
 
+class TestStringInput(unittest.TestCase):
+    def test_int2roman(self):
+        """Test if string input works correctly."""
+        input_str = "55"
+        result = int2roman(input_str)
+        self.assertEqual(result, "LV")
+
+
 class TestBadInput(unittest.TestCase):
     def test_roman2int(self):
         """Test if error raising works for bad input string."""

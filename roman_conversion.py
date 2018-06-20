@@ -49,7 +49,7 @@ def int2roman(num):
         raise InputError(num, "Input value must be in integer representation.")
     except TypeError:
         raise InputError(num, "Input must be a number, string, or a bytes-like object.")
-    if num != num_int:
+    if float(num) != float(num_int):
         raise InputError(num, "Input cannot be a non-integer decimal value.")
     else:
         num = int(num)
